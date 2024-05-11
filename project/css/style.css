@@ -1,0 +1,33 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* устанавливаю ширину поля и централизую её */
+.container{ 
+    max-width: 23%;
+    margin: auto;
+}
+
+h1 {
+    margin-bottom: 25%;
+}
+
+/*работа с полем*/
+.board{
+    display: grid; /*расположение эл-ов */
+    grid-template-columns: repeat(3, 1fr);
+    margin: auto;
+}
+
+/*работа с ячейуами*/
+.cell{
+    width: 100px;
+    height: 100px;
+    border: 0.5px solid black; /*сами ячейки ширина обрамления*/
+    display: flex; /*централизую*/
+    justify-content: center; /*выравниваю штуки*/
+    align-items: center;
+    font-size: 30px; 
+    cursor: pointer; /*проверка тыканья*/
+}
