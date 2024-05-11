@@ -6,11 +6,12 @@ body {
 /* устанавливаю ширину поля и централизую её */
 .container{ 
     max-width: 23%;
-    margin: auto;
+    margin-left: 25%;
 }
 
 h1 {
-    margin-bottom: 25%;
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 
 /*работа с полем*/
@@ -22,8 +23,8 @@ h1 {
 
 /*работа с ячейуами*/
 .cell{
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     border: 0.5px solid black; /*сами ячейки ширина обрамления*/
     display: flex; /*централизую*/
     justify-content: center; /*выравниваю штуки*/
