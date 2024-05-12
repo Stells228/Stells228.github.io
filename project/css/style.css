@@ -1,11 +1,14 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #dba07de8;
 }
 
 /* устанавливаю ширину поля и централизую её */
-.container{ 
+.container {
     max-width: 10%;
     margin-left: 5%;
+    display: flex;
+    position: relative; /* Добавляем позиционирование для контейнера */
 }
 
 h1 {
@@ -38,4 +41,34 @@ h1 {
     position: fixed;
     margin-top: 2%;
     margin-left: 21%;
+}
+
+#map{
+    position: fixed;
+    top: 0; 
+    margin-left: 57%;
+    margin-top: 16%;
+}
+
+
+.player1 {
+    width: 20px;
+    height: 20px;
+    background-color: #fffb00;
+    position: absolute;
+    margin-top: 530%;
+    margin-left: 809px;
+    transform: translate(150%, -50%); /* Центрирование фигуры */
+    transition: bottom 1.4s /* Плавное движение фигуры */
+}
+
+.player2 {
+    width: 20px;
+    height: 20px;
+    background-color: #ff0000;
+    position: absolute;
+    margin-top: 530%;
+    margin-left: 809px;
+    transform: translate(150%, -50%); /* Центрирование фигуры */
+    transition: bottom 1.4s /* Плавное движение фигуры */
 }
