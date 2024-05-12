@@ -157,3 +157,15 @@ function resetGame() {
     const restBtn = document.getElementById('restBtn');
     restBtn.disabled = false; //освобождение кнопки "следующий раунд" от блока
 }
+
+//перемещение фигур по средству счёта игры
+const player1Fig = document.getElementById('player1');
+const player2Fig = document.getElementById('player2');
+
+function movePlayers() {
+    // Обновляем позицию фигур в зависимости от счета игроков
+    player1Fig.style.bottom = (player1Score * 130) + 'px'; // Перемещаем player1 вверх за каждый пункт счета
+    player2Fig.style.bottom = (player2Score * 130) + 'px'; // Перемещаем player2 вверх за каждый пункт счета
+}
+// Вызываем функцию movePlayers() при каждом изменении счета
+setInterval(movePlayers, 1000); // Вызываем функцию каждую секунду
