@@ -3,6 +3,9 @@ const cells = document.querySelectorAll('[data-cell]'); /*читаю все эл
 let patPat = true; //слежу за текущим фото 
 let gameOver = false; //условие конца игры
 
+let rounds = 0;
+const maxRounds = 5;
+
 // Обработчик клика по ячейке
 
 //перебираю каждый эл-нт в массиве
@@ -65,6 +68,12 @@ function wonCheck() {
             const winners = cells[x].style.backgroundImage.includes('1') ? 'Мурк`аты' : 'Костом`али';
             displayWinner(winners); //передача для объявления победителя
             gameOver = true;
+            rounds++;
+            if (rounds >= maxRounds) {
+                gameOver = true;
+                messageElement.textContent = 'Игра завершена'; 
+                restBtn.disabled = true //disbled - блокирование объекта
+            }
             return;
         }
     }
@@ -102,6 +111,8 @@ function displayWinner(player) {
     newScore(player);
 }
 
+
+//[создание кнопки нового раунда]
 const restBtn = document.getElementById('restBtn');
 
 //объявление событие клика
@@ -116,4 +127,33 @@ function restGame() {
     gameOver = false; //сбрасываю состояние игры
     patPat = true; //возвращаю нач значение
     messageElement.textContent = ''; //удаляю сообщение о выигрыше/ничьей
+}
+
+//[создание кнопки сброса игры]
+const newGameBtn = document.getElementById('resetGameBtn');
+
+newGameBtn.addEventListener('click', () => {
+    resetGame();
+});
+
+function resetGame() {
+    patPat = true;
+    gameOver = false;
+    rounds = 0;
+    player1Score = 0;
+    player2Score = 0;
+
+    // Очистка ячеек игрового поля
+    cells.forEach(cell => {
+        cell.style.backgroundImage = '';
+    });
+
+    // Сброс сообщения о выигрыше/ничьей
+    messageElement.textContent = '';
+
+    // Сброс счета игроков
+    displayScore();
+
+    const restBtn = document.getElementById('restBtn');
+    restBtn.disabled = false; //освобождение кнопки "следующий раунд" от блока
 }
