@@ -72,6 +72,48 @@ function wonCheck() {
     checkEndGame(); 
 }
 
+//создаём игроков
+let player1Score = 0;
+let player2Score = 0;
+
+//условие счётчика
+function newScore(player) {
+    if (player == 'Мурк`аты') {
+        player1Score++;
+    }
+    else if (player == 'Костом`али') {
+        player2Score++;
+    }
+    displayScore();
+}
+
+//счётчик
+function displayScore() {
+    const player1ScoreEl = document.getElementById('player1-Score');
+    const player2ScoreEl = document.getElementById('player2-Score');
+
+    player1ScoreEl.textContent = `мурк\`аты : ${player1Score}`;
+    player2ScoreEl.textContent = `Костом\`али : ${player2Score}`;
+
+}
+
 function displayWinner(player) {
     messageElement.textContent = `${player} победили!`;
+    newScore(player);
+}
+
+const restBtn = document.getElementById('restBtn');
+
+//объявление событие клика
+restBtn.addEventListener('click', () => {
+    restGame()
+});
+
+function restGame() {
+    cells.forEach(cell => { //для каждого cell будут делаться:
+        cell.style.backgroundImage = ''; //очистка поля
+    });
+    gameOver = false; //сбрасываю состояние игры
+    patPat = true; //возвращаю нач значение
+    messageElement.textContent = ''; //удаляю сообщение о выигрыше/ничьей
 }
