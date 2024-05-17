@@ -58,8 +58,9 @@ function checkEndGame() {
     if (checkDraw()) {
         messageElement.textContent = 'Ничья!';
         gameOver = true;
-    }
+    } 
 }
+
 //проверка победителя
 function wonCheck() {
     for (let set of Winner) {
@@ -69,7 +70,7 @@ function wonCheck() {
             displayWinner(winners); //передача для объявления победителя
             gameOver = true;
             rounds++;
-            if (rounds >= maxRounds) {
+            if (player1Score == maxRounds || player2Score == maxRounds) {
                 gameOver = true;
                 messageElement.textContent = 'Игра завершена'; 
                 restBtn.disabled = true //disbled - блокирование объекта
@@ -100,11 +101,41 @@ function newScore(player) {
 function displayScore() {
     const player1ScoreEl = document.getElementById('player1-Score');
     const player2ScoreEl = document.getElementById('player2-Score');
+    
 
     player1ScoreEl.textContent = `мурк\`аты : ${player1Score}`;
     player2ScoreEl.textContent = `Костом\`али : ${player2Score}`;
 
 }
+
+function saveScoreToLocalStorage() {
+    // Удаляю старые данные, если они есть
+    localStorage.removeItem('player1Score');
+    localStorage.removeItem('player2Score');
+    
+    // Сохраняю новые данные
+    localStorage.setItem('player1Score', player1Score);
+    localStorage.setItem('player2Score', player2Score);
+}
+
+function loadScoreFromLocalStorage() {
+    // Проверяю есть ли данные в localStorage
+    //if значение localStorage найдено, то присвоем его к переменной, иначе обозначим за нолик ;)
+    player1Score = localStorage.getItem('player1Score') || 0;
+    player2Score = localStorage.getItem('player2Score') || 0;
+    displayScore();
+}
+
+// Вызов loadScoreFromLocalStorage() при начале игры
+document.addEventListener('DOMContentLoaded', function() {
+    loadScoreFromLocalStorage();
+});
+
+// Сохраняю данные при выходе из игры
+window.onbeforeunload = function() {
+    saveScoreToLocalStorage();
+};
+
 
 function displayWinner(player) {
     messageElement.textContent = `${player} победили!`;
@@ -126,7 +157,11 @@ function restGame() {
     });
     gameOver = false; //сбрасываю состояние игры
     patPat = true; //возвращаю нач значение
-    messageElement.textContent = ''; //удаляю сообщение о выигрыше/ничьей
+}
+
+function clearLocalStorage() {
+    // Очистка localStorage
+    localStorage.clear();
 }
 
 //[создание кнопки сброса игры]
@@ -147,6 +182,7 @@ function resetGame() {
     cells.forEach(cell => {
         cell.style.backgroundImage = '';
     });
+    
 
     // Сброс сообщения о выигрыше/ничьей
     messageElement.textContent = '';
@@ -167,5 +203,6 @@ function movePlayers() {
     player1Fig.style.bottom = (player1Score * 130) + 'px'; // Перемещаем player1 вверх за каждый пункт счета
     player2Fig.style.bottom = (player2Score * 130) + 'px'; // Перемещаем player2 вверх за каждый пункт счета
 }
+
 // Вызываем функцию movePlayers() при каждом изменении счета
-setInterval(movePlayers, 1000); // Вызываем функцию каждую секунду
+setInterval(movePlayers, 1000); // Вызываем функцию каждую секундуS
