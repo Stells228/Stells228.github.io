@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/css/style.css">
-        <title>Tic-Tac-Toe</title>
-    </head>
-    <body>
-        <h1>Tic-Tac-Toe</h1>
-        <div class="container">
-            <div class="game">
-                <div id="player1-Score"> Мурк`аты: 0</div>
-                <div id="player2-Score"> Костом`али: 0</div>
-                <button id="resetGameBtn">Каналья! Сброс игры</button>
-                <div id="finalScore"></div>
-                <!-- создаю игровое поле -->
-                <div class="board" id="board">
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                    <div class="cell" data-cell></div>
-                </div>
-                <div id="map"><img src="/media/3.png"></div>
-                <div id="player1" class="player1"></div>
-                <div id="player2" class="player2"></div>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Tic-Tac-Toe</title>
+    <script src="js/tic.js" type="text/javascript"></script>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div class="container">
+        <div class="game">
+            <div id="player1-Score"> Мурк`аты: 0</div>
+            <div id="player2-Score"> Костом`али: 0</div>
+            <button id="resetGameBtn">Каналья! Сброс игры</button>
+            <div id="finalScore"></div>
+            <!-- создаю игровое поле -->
+            <div class="board" id="board">
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
             </div>
+            <button id="restBtn">Новый раунд</button>
+            <div id="map"><img src="media/3.png"></div>
+            <div id="player1" class="player1"></div>
+            <div id="player2" class="player2"></div>
         </div>
-        <div id="message"></div>
-        <button id="restBtn">Новый раунд</button> 
-        <script src="js/tic.js" type="text/javascript"></script>
-    </body>
+    </div>
+    <b><div id="message"></div></b>
+</body>
 </html>
