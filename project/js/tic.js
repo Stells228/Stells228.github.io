@@ -83,9 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
         cells[z].style.backgroundImage
       ) {
-        const winners = cells[x].style.backgroundImage.includes("1")
-          ? "Мурк`аты"
-          : "Костом`али";
+        const winners = cells[x].style.backgroundImage.includes("1") ? "Мурк`аты" : "Костом`али";
         displayWinner(winners); //передача для объявления победителя
         gameOver = true;
         rounds++;
@@ -101,9 +99,9 @@ document.addEventListener("DOMContentLoaded", function () {
     checkEndGame();
   }
 
-  //создаём игроков
-  let player1Score = 0;
-  let player2Score = 0;
+    //создаём игроков
+    let player1Score =  0;
+    let player2Score =  0;
 
   //условие счётчика
   function newScore(player) {
@@ -114,6 +112,13 @@ document.addEventListener("DOMContentLoaded", function () {
       player2Score++;
     }
     displayScore();
+    saveScoreToLocalStorage();
+  }
+
+    // Функция для сохранения счета в localStorage
+    function saveScoreToLocalStorage() {
+    localStorage.setItem('player1Score', player1Score);
+    localStorage.setItem('player2Score', player2Score);
   }
 
   //счётчик
@@ -125,33 +130,18 @@ document.addEventListener("DOMContentLoaded", function () {
     player2ScoreEl.textContent = `Костом\`али : ${player2Score}`;
   }
 
-  function saveScoreToLocalStorage() {
-    // Удаляю старые данные, если они есть
-    localStorage.removeItem("player1Score");
-    localStorage.removeItem("player2Score");
+  //после загрузки страницы, проверяю наличие данных в localStorage
+  window.onload = () => {
+    if(localStorage.getItem('player1Score') && localStorage.getItem('player2Score')) {
+      player1Score = parseInt(localStorage.getItem('player1Score')); //преобразую строку в число
+      player2Score = parseInt(localStorage.getItem('player2Score'));
+      displayScore();
+    }
 
-    // Сохраняю новые данные
-    localStorage.setItem("player1Score", player1Score);
-    localStorage.setItem("player2Score", player2Score);
+    //Заметка: Локальное хранилище хранит только строки, поэтому для работы с данными
+    //нам надо вернуть числа
   }
 
-  function loadScoreFromLocalStorage() {
-    // Проверяю есть ли данные в localStorage
-    //if значение localStorage найдено, то присвоем его к переменной, иначе обозначим за нолик ;)
-    player1Score = localStorage.getItem("player1Score") || 0;
-    player2Score = localStorage.getItem("player2Score") || 0;
-    displayScore();
-  }
-
-  // Вызов loadScoreFromLocalStorage() при начале игры
-  document.addEventListener("DOMContentLoaded", function () {
-    loadScoreFromLocalStorage();
-  });
-
-  // Сохраняю данные при выходе из игры
-  window.onbeforeunload = function () {
-    saveScoreToLocalStorage();
-  };
 
   function displayWinner(player) {
     messageElement.textContent = `${player} победили!`;
@@ -172,11 +162,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     gameOver = false; //сбрасываю состояние игры
     patPat = true; //возвращаю нач значение
-  }
-
-  function clearLocalStorage() {
-    // Очистка localStorage
-    localStorage.clear();
   }
 
   //[создание кнопки сброса игры]
@@ -212,6 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const player1Fig = document.getElementById("player1");
   const player2Fig = document.getElementById("player2");
 
+
   function movePlayers() {
     // Обновляем позицию фигур в зависимости от счета игроков
     let player1Top, player2Top;
@@ -231,6 +217,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     player1Fig.style.top = player1Top + "px";
     player2Fig.style.top = player2Top + "px";
+    saveFiguresPosLocalStorage(player1Top, player2Top);
+  }
+
+  //сохраняю позицию фигуры в localStorage
+  function saveFiguresPosLocalStorage(player1Top, player2Top) {
+    localStorage.setItem('player1Top', player1Top);
+    localStorage.setItem('player2Top', player2Top);
   }
 
   // Вызываем функцию movePlayers() при каждом изменении счета
