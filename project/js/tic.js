@@ -7,14 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let rounds = 0;
   const maxRounds = 5;
 
-  let isPlayerTurn = true;
-
   // Обработчик клика по ячейке
-
   //перебираю каждый эл-нт в массиве
   cells.forEach((cell) => {
-    cell.addEventListener("click", () => {
-      //при тыканьи будет происходить магия
+    cell.addEventListener("click", () => {//при тыканьи будет происходить магия
       // Проверяю, что ячейка пуста
       if (!cell.style.backgroundImage && !gameOver) {
         const urlPicture = patPat ? `media/1.png` : `media/2.png`; //условие о том, какая картинка первее
@@ -24,14 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
         cell.style.backgroundPosition = `center`;
 
         patPat = !patPat; //смена фото для следующего клика
-        isPlayerTurn = false;
         wonCheck(); //обробатывем возможный выигрыш
-
-        // Если игра не закончена, сделайте ход бота
-        if (!gameOver) {
-          botMove();
-          isPlayerTurn = true;
-          wonCheck();
+        if (!gameOver && !patPat) {
+          botMove(); // Делаем ход бота после хода игрока
         }
       }
     });
@@ -65,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
     return isDraw;
   }
 
+  //создаём игроков
+  let player1Score = 0;
+  let player2Score = 0;
+
   //проверка условий ничьей
   function checkEndGame() {
     if (checkDraw()) {
@@ -83,7 +78,9 @@ document.addEventListener("DOMContentLoaded", function () {
         cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
         cells[z].style.backgroundImage
       ) {
-        const winners = cells[x].style.backgroundImage.includes("1") ? "Мурк`аты" : "Костом`али";
+        const winners = cells[x].style.backgroundImage.includes("1")
+          ? "Мурк`аты"
+          : "Костом`али";
         displayWinner(winners); //передача для объявления победителя
         gameOver = true;
         rounds++;
@@ -97,11 +94,220 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     //проверка на ничью
     checkEndGame();
+    if (!gameOver && !patPat) {
+      botMove(); // Делаем ход бота, если не завершилась игра и сейчас ход бота
+    }
   }
 
-    //создаём игроков
-    let player1Score =  0;
-    let player2Score =  0;
+  //[Создание бота]
+  function botMove() {
+    if (checkBotWin()) {
+      // Если бот может выиграть на следующем ходу, делаю соответствующий ход
+      makeBotWinningMove();
+    } 
+    else if (checkPlayerWin()) {
+      // Если игрок может выиграть на следующем ходу, блокирую его победу
+      blockPlayerWinningMove();
+    } 
+    else {
+      //Нет возможности выиграть или блокировать победу игрока? Беру случайную ячейку
+      makeRandomMove();
+    }
+  }
+  //расписывание внутрянки функций и условий [бота]
+
+  //функция на проверку победы игрока
+  function checkPlayerWin() {
+    for (let set of Winner) {
+      const [x, y, z] = set;
+      if (
+        !cells[x].style.backgroundImage &&
+        cells[y].style.backgroundImage === 'url("media/1.png")' &&
+        cells[y].style.backgroundImage === cells[z].style.backgroundImage
+      ) {
+        return true;
+      }
+      if (
+        !cells[y].style.backgroundImage &&
+        cells[x].style.backgroundImage === 'url("media/1.png")' &&
+        cells[x].style.backgroundImage === cells[z].style.backgroundImage
+      ) {
+        return true;
+      }
+      if (
+        !cells[z].style.backgroundImage &&
+        cells[x].style.backgroundImage === 'url("media/1.png")' &&
+        cells[x].style.backgroundImage === cells[y].style.backgroundImage
+      ) {
+        return true;
+      }
+    }
+    return false; // Игрок не имеет возможности победить на следующем ходу
+  }
+
+  //функция на проверку победы бота
+  function checkBotWin() {
+    for (let set of Winner) {
+      const [x, y, z] = set;
+      if (
+        !cells[x].style.backgroundImage &&
+        cells[y].style.backgroundImage === 'url("media/2.png")' &&
+        cells[y].style.backgroundImage === cells[z].style.backgroundImage
+      ) {
+        return true;
+      }
+      if (
+        !cells[y].style.backgroundImage &&
+        cells[x].style.backgroundImage === 'url("media/2.png")' &&
+        cells[x].style.backgroundImage === cells[z].style.backgroundImage
+      ) {
+        return true;
+      }
+      if (
+        !cells[z].style.backgroundImage &&
+        cells[x].style.backgroundImage === 'url("media/2.png")' &&
+        cells[x].style.backgroundImage === cells[y].style.backgroundImage
+      ) {
+        return true;
+      }
+    }
+    return false; // Бот не имеет возможности победить на следующем ходу
+  }
+
+  //убийство игрока (при возможности [бота] выигрыша сейчас)
+  function makeBotWinningMove() {
+    // Реализация логики хода бота, который позволит ему выиграть на следующем ходу
+    for (let set of Winner) {
+      const [x, y, z] = set;
+      if (
+        !cells[x].style.backgroundImage &&
+        cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
+        cells[y].style.backgroundImage === 'url("media/2.png")'
+      ) {
+        cells[x].click();
+        return;
+      }
+      if (
+        !cells[y].style.backgroundImage &&
+        cells[x].style.backgroundImage === cells[z].style.backgroundImage &&
+        cells[x].style.backgroundImage === 'url("media/2.png")'
+      ) {
+        cells[y].click();
+        return;
+      }
+      if (
+        !cells[z].style.backgroundImage &&
+        cells[x].style.backgroundImage === cells[y].style.backgroundImage &&
+        cells[x].style.backgroundImage === 'url("media/2.png")'
+      ) {
+        cells[z].click();
+        return;
+      }
+    }
+  }
+
+  //блок игрока (при возможности [игрока] выигрыша сейчас)
+  function blockPlayerWinningMove() {
+    // Реализация логики для блокировки на следующем ходу
+    for (let set of Winner) {
+      const [x, y, z] = set;
+
+      // Блокировка победы по горизонтали
+      if (
+        cells[x].style.backgroundImage &&
+        cells[x].style.backgroundImage === cells[y].style.backgroundImage &&
+        !cells[z].style.backgroundImage
+      ) {
+        cells[z].click(); // Блокирую победу игрока
+        return;
+      } 
+      else if (
+        cells[x].style.backgroundImage &&
+        cells[x].style.backgroundImage === cells[z].style.backgroundImage &&
+        !cells[y].style.backgroundImage
+      ) {
+        cells[y].click(); // Блокирую победу игрока
+        return;
+      } 
+      else if (
+        cells[y].style.backgroundImage &&
+        cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
+        !cells[x].style.backgroundImage
+      ) {
+        cells[x].click(); // Блокирую победу игрока
+        return;
+      }
+
+      // Блокировка победы игрока по вертикали
+      else if (
+        !cells[x].style.backgroundImage &&
+        cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
+        cells[y].style.backgroundImage.includes("1")
+      ) {
+        cells[x].click(); // Блокирую победу игрока
+        return;
+      } 
+      else if (
+        cells[x].style.backgroundImage === cells[z].style.backgroundImage &&
+        cells[x].style.backgroundImage.includes("1") &&
+        !cells[y].style.backgroundImage
+      ) {
+        cells[y].click(); // Блокирую победу игрока
+        return;
+      } 
+      else if (
+        cells[x].style.backgroundImage === cells[y].style.backgroundImage &&
+        cells[x].style.backgroundImage.includes("1") &&
+        !cells[z].style.backgroundImage
+      ) {
+        cells[z].click(); // Блокирую победу игрока
+        return;
+      }
+
+      // Блокировка победы игрока по диагонали
+      else if (
+        !cells[x].style.backgroundImage &&
+        cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
+        cells[y].style.backgroundImage.includes("1")) {
+        cells[x].click(); // Блокирую победу игрока
+        return;
+      } 
+      else if (
+        cells[x].style.backgroundImage === cells[z].style.backgroundImage &&
+        cells[x].style.backgroundImage.includes("1") &&
+        !cells[y].style.backgroundImage
+      ) {
+        cells[y].click(); // Блокирую победу игрока
+        return;
+      } 
+      else if (
+        cells[x].style.backgroundImage === cells[y].style.backgroundImage &&
+        cells[x].style.backgroundImage.includes("1") &&
+        !cells[z].style.backgroundImage
+      ) {
+        cells[z].click(); // Блокирую победу игрока
+        return;
+      }
+    }
+  }
+
+  //случайный ход бота
+  function makeRandomMove() {
+    let randomCell; //хранение рандом пустой клетки
+    let emptyCellCnt = 0; //кол-во пустых клеток
+
+    // Нахожу случайную пустую ячейку
+    for (let i = 0; i < cells.length; i++) {
+      if (!cells[i].style.backgroundImage) {
+        emptyCellCnt++;
+        if (Math.floor(Math.random() * emptyCellCnt) === 0) {
+          randomCell = i; //индекс рандомной пустой клетки
+        }
+      }
+    }
+    // Выполняю ход
+    cells[randomCell].click();
+  }
 
   //условие счётчика
   function newScore(player) {
@@ -115,10 +321,10 @@ document.addEventListener("DOMContentLoaded", function () {
     saveScoreToLocalStorage();
   }
 
-    // Функция для сохранения счета в localStorage
-    function saveScoreToLocalStorage() {
-    localStorage.setItem('player1Score', player1Score);
-    localStorage.setItem('player2Score', player2Score);
+  // Функция для сохранения счета в localStorage
+  function saveScoreToLocalStorage() {
+    localStorage.setItem("player1Score", player1Score);
+    localStorage.setItem("player2Score", player2Score);
   }
 
   //счётчик
@@ -126,22 +332,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const player1ScoreEl = document.getElementById("player1-Score");
     const player2ScoreEl = document.getElementById("player2-Score");
 
-    player1ScoreEl.textContent = `мурк\`аты : ${player1Score}`;
+    player1ScoreEl.textContent = `Мурк\`аты : ${player1Score}`;
     player2ScoreEl.textContent = `Костом\`али : ${player2Score}`;
   }
 
   //после загрузки страницы, проверяю наличие данных в localStorage
   window.onload = () => {
-    if(localStorage.getItem('player1Score') && localStorage.getItem('player2Score')) {
-      player1Score = parseInt(localStorage.getItem('player1Score')); //преобразую строку в число
-      player2Score = parseInt(localStorage.getItem('player2Score'));
+    if (localStorage.getItem("player1Score") && localStorage.getItem("player2Score")) {
+      player1Score = parseInt(localStorage.getItem("player1Score")); //преобразую строку в число
+      player2Score = parseInt(localStorage.getItem("player2Score"));
       displayScore();
     }
 
     //Заметка: Локальное хранилище хранит только строки, поэтому для работы с данными
     //нам надо вернуть числа
-  }
-
+  };
 
   function displayWinner(player) {
     messageElement.textContent = `${player} победили!`;
@@ -157,7 +362,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   function restGame() {
-    cells.forEach((cell) => { //для каждого cell будут делаться:
+    cells.forEach((cell) => {
+      //для каждого cell будут делаться:
       cell.style.backgroundImage = ""; //очистка поля
     });
     gameOver = false; //сбрасываю состояние игры
@@ -189,6 +395,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Сброс счета игроков
     displayScore();
 
+    //очищение localStorage
+    localStorage.removeItem("player1Score");
+    localStorage.removeItem("player2Score");
+
     const restBtn = document.getElementById("restBtn");
     restBtn.disabled = false; //освобождение кнопки "следующий раунд" от блока
   }
@@ -196,7 +406,6 @@ document.addEventListener("DOMContentLoaded", function () {
   //перемещение фигур по средству счёта игры
   const player1Fig = document.getElementById("player1");
   const player2Fig = document.getElementById("player2");
-
 
   function movePlayers() {
     // Обновляем позицию фигур в зависимости от счета игроков
@@ -222,8 +431,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   //сохраняю позицию фигуры в localStorage
   function saveFiguresPosLocalStorage(player1Top, player2Top) {
-    localStorage.setItem('player1Top', player1Top);
-    localStorage.setItem('player2Top', player2Top);
+    localStorage.setItem("player1Top", player1Top);
+    localStorage.setItem("player2Top", player2Top);
   }
 
   // Вызываем функцию movePlayers() при каждом изменении счета
