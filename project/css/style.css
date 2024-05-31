@@ -15,8 +15,6 @@ body {
     grid-area: content;
 }
 
-
-
 /*работа с полем*/
 .board {
     display: grid; /*расположение эл-ов */
@@ -52,7 +50,6 @@ body {
 
 }
 
-
 .player1 {
     background-color: #fffb00;
 }
@@ -61,7 +58,32 @@ body {
     background-color: #ff0000;
 }
 
+/*установление "заморроженного" места кнопок выбора и вкл/выкл музыки, а также заголовка*/
+#musicSelect {
+    width: 80px;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 10px;
+    
+}
 
+#toggleMusicBtn {
+    width: 80px;
+    height: 50px;
+    position: fixed;
+    bottom: 0;
+    right: 90px; /* Расстояние между кнопками */
+    margin: 10px;
+}
+
+h1 {
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
 @media screen and (max-width: 979.5px) {
 
@@ -71,16 +93,11 @@ body {
     }
 
     #message {
-        top: 6%;
-        left: 45.5%;
-        transform: translateX(-50%);
-        text-align: center;
-    }
-
-    h1 {
         position: absolute;
-        left: calc(29% + 45px);
-        margin: calc(3% - 30px);
+        top:calc(3.5%);
+        left:calc(67%);
+        transform: translate(-50%, -50%);
+        text-align: center;
     }
 
     .board {
@@ -136,14 +153,9 @@ body {
     }
 
     #message {
-        top: 9%;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-    }
-
-    h1 {
-        margin-top: 5% auto 6%;
+        position: absolute;
+        top:calc(49%);
+        transform: translate(-50%, -50%);
         text-align: center;
     }
 
@@ -164,7 +176,7 @@ body {
 
     #map {
         margin-left: 110%;
-        margin-top: -110%;
+        margin-top: -105%;
     }
 
     #restBtn {
@@ -180,6 +192,7 @@ body {
     }
 
     .game {
+        margin-top: 10%;
         transform: scale(0.75);
     }
 }
@@ -191,14 +204,9 @@ body {
     }
 
     #message {
-        top: 9%;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-    }
-
-    h1 {
-        margin-top: 5% auto 6%;
+        position: absolute;
+        top:calc(7%);
+        transform: translate(-50%, -50%);
         text-align: center;
     }
 
@@ -212,7 +220,7 @@ body {
 
     #map {
         margin-left: 120%;
-        margin-top: -115%;
+        margin-top: -110%;
     }
 
     #restBtn {
@@ -227,9 +235,8 @@ body {
         transition: top 0.5s ease; /* Добавляем анимацию для свойства top */
     }
 
-    /*слегка уменьшаю внутрянку экрана*/
     .game {
+        margin-top: 3%;
         transform: scale(0.9); 
     }
-
 }
