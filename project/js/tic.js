@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
         patPat = !patPat; //смена фото для следующего клика
         wonCheck(); //обробатывем возможный выигрыш
         if (!gameOver && !patPat) {
-          botMove(); // Делаем ход бота после хода игрока
+          botMove; // Делаем ход бота после хода игрока
         }
       }
     });
@@ -78,9 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
         cells[z].style.backgroundImage
       ) {
-        const winners = cells[x].style.backgroundImage.includes("1")
-          ? "Мурк`аты"
-          : "Костом`али";
+        const winners = cells[x].style.backgroundImage.includes("1") ? "Мурк`аты" : "Костом`али";
         displayWinner(winners); //передача для объявления победителя
         gameOver = true;
         rounds++;
@@ -98,20 +96,21 @@ document.addEventListener("DOMContentLoaded", function () {
       botMove(); // Делаем ход бота, если не завершилась игра и сейчас ход бота
     }
   }
-
+  
   //[Создание бота]
   function botMove() {
     if (checkBotWin()) {
       // Если бот может выиграть на следующем ходу, делаю соответствующий ход
-      makeBotWinningMove();
+      setTimeout(makeBotWinningMove, 800); //время задержки хода [бота]
+
     } 
     else if (checkPlayerWin()) {
       // Если игрок может выиграть на следующем ходу, блокирую его победу
-      blockPlayerWinningMove();
+      setTimeout(blockPlayerWinningMove, 800);
     } 
     else {
       //Нет возможности выиграть или блокировать победу игрока? Беру случайную ячейку
-      makeRandomMove();
+      setTimeout(makeRandomMove, 800);
     }
   }
   //расписывание внутрянки функций и условий [бота]
@@ -416,12 +415,12 @@ document.addEventListener("DOMContentLoaded", function () {
       player2Top = 1350 - player2Score * 100; // место и шаг вверх
     } 
     else if (window.innerWidth >= 980 && window.innerWidth < 1200) {
-      player1Top = 620 - player1Score * 100;
-      player2Top = 620 - player2Score * 100;
+      player1Top = 640 - player1Score * 100;
+      player2Top = 640 - player2Score * 100;
     } 
     else if (window.innerWidth >= 1200) {
-      player1Top = 600 - player1Score * 100;
-      player2Top = 600 - player2Score * 100;
+      player1Top = 625 - player1Score * 100;
+      player2Top = 625 - player2Score * 100;
     }
 
     player1Fig.style.top = player1Top + "px";
@@ -438,3 +437,29 @@ document.addEventListener("DOMContentLoaded", function () {
   // Вызываем функцию movePlayers() при каждом изменении счета
   setInterval(movePlayers, 1000); // Вызываем функцию каждую секундуS
 });
+
+let musicEnabled = false; //слежу за состоянием музыки(вкл/выкл)
+let backgroundMusic = document.getElementById("backgroundMusic");
+let toggleMusicBtn = document.getElementById("toggleMusicBtn");
+
+//функция для включения/выключения музыки
+function toggleMusic() {
+  if (musicEnabled) { //if on
+    backgroundMusic.pause();
+    toggleMusicBtn.textContent = "Включить звук";
+  } 
+  else { //if off
+    backgroundMusic.play();
+    toggleMusicBtn.textContent = "Выключить звук";
+  }
+  musicEnabled = !musicEnabled; //инверсия состояния звука
+}
+
+//функция для смены музыки
+function changeMusic() {
+  let selectedMusic = document.getElementById("musicSelect").value;
+  backgroundMusic.src = selectedMusic;
+  backgroundMusic.play();
+  musicEnabled = true; //указатель, что музыка включена
+  toggleMusicBtn.textContent = "Выключить звук"; //смена показателя кнопки
+}
