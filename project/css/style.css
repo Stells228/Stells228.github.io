@@ -1,6 +1,7 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #dba07de8;
+    background-image: url('/media/fon.png');
+    background-size: 700px; 
+    background-position: center; 
 }
 
 /* устанавливаю ширину поля и централизую её */
@@ -127,7 +128,7 @@ h1 {
 
     #map {
         margin-top: 17%;
-        margin-left: 44%;
+        margin-left: 29%;
     }
 
     #restBtn {
@@ -138,8 +139,7 @@ h1 {
 
     #player1, #player2 {
         position: absolute;
-        left: calc(37% + 190px); /* Позиция относительно #map лево-право*/
-        top: calc(44% + 40px);/* Позиция относительно #map верх-низ*/
+        left: calc(37% + 180px); /* Позиция относительно #map лево-право*/
         transition: top 0.5s ease; /* Добавляем анимацию для свойства top */
     }
 
@@ -194,8 +194,7 @@ h1 {
 
     #player1, #player2 {
         position: absolute;
-        left: calc(110% + 150px);/* Позиция относительно #map лево-право*/
-        top: calc(110% - 30px); /* Позиция относительно #map верх-низ*/
+        left: calc(110% + 221px);/* Позиция относительно #map лево-право*/
         transition: top 0.5s ease; /* Добавляем анимацию для свойства top */
     }
 
@@ -244,8 +243,7 @@ h1 {
 
     #player1, #player2 {
         position: absolute;
-        left: calc(110% + 204px); /* Позиция относительно #map лево-право*/
-        top: calc(115% - 80px); /* Позиция относительно #map верх-низ*/
+        left: calc(110% + 274px); /* Позиция относительно #map лево-право*/
         transition: top 0.5s ease; /* Добавляем анимацию для свойства top */
     }
 
