@@ -85,6 +85,8 @@ h1 {
     transform: translate(-50%, -50%);
 }
 
+
+
 @media screen and (max-width: 979.5px) {
 
     .container {
@@ -144,6 +146,12 @@ h1 {
     .game {
         transform: scale(0.9);
     }
+
+    #gameModeSelect {
+        position: fixed;
+        top: -65px; 
+        right: 470px; 
+    }
 }
 
 @media screen and (min-width: 980px) {
@@ -195,6 +203,12 @@ h1 {
         margin-top: 10%;
         transform: scale(0.75);
     }
+
+    #gameModeSelect {
+        position: fixed;
+        top: -110px; 
+        right: 670px; 
+    }
 }
 
 @media screen and (min-width: 1200px) {
@@ -238,5 +252,11 @@ h1 {
     .game {
         margin-top: 3%;
         transform: scale(0.9); 
+    }
+
+    #gameModeSelect {
+        position: fixed;
+        top: -70px; 
+        right: 605px;
     }
 }
