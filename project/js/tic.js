@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+
   const cells = document.querySelectorAll("[data-cell]"); //читаю все эл-ты данного класса
 
   let patPat = true; //слежу за текущим фото
@@ -22,9 +23,11 @@ document.addEventListener("DOMContentLoaded", function () {
         patPat = !patPat; //смена фото для следующего клика
         wonCheck(); //обробатывем возможный выигрыш
         if (!gameOver && !patPat) {
-          botMove; // Делаем ход бота после хода игрока
+          if (gameMode === "bot") { //если выбран режим игры с ботом
+            botMove; // Делаем ход бота после хода игрока
         }
       }
+    }
     });
   });
 
@@ -92,27 +95,64 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     //проверка на ничью
     checkEndGame();
-    if (!gameOver && !patPat) {
+    if (!gameOver && !patPat && gameMode === "bot") { 
       botMove(); // Делаем ход бота, если не завершилась игра и сейчас ход бота
     }
   }
-  
-  //[Создание бота]
-  function botMove() {
-    if (checkBotWin()) {
-      // Если бот может выиграть на следующем ходу, делаю соответствующий ход
-      setTimeout(makeBotWinningMove, 800); //время задержки хода [бота]
 
-    } 
-    else if (checkPlayerWin()) {
-      // Если игрок может выиграть на следующем ходу, блокирую его победу
-      setTimeout(blockPlayerWinningMove, 800);
-    } 
-    else {
-      //Нет возможности выиграть или блокировать победу игрока? Беру случайную ячейку
-      setTimeout(makeRandomMove, 800);
-    }
+// Логика для хода другого игрока
+function playerMove(cell) {
+  if (!cell.style.backgroundImage && !gameOver) {
+    const urlPicture = patPat ? `media/1.png` : `media/2.png`;
+
+    cell.style.backgroundImage = `url(${urlPicture})`;
+    cell.style.backgroundSize = `cover`;
+    cell.style.backgroundPosition = `center`;
+
+    patPat = !patPat;
+    wonCheck();
   }
+}
+
+  // Добавление функционала выбора режима игры (с ботом или с другом)
+  const gameModeSelect = document.getElementById("gameModeSelect");
+
+  gameModeSelect.addEventListener("change", () => {
+     const selectedMode = gameModeSelect.value;
+     console.log(`Режим игры: ${selectedMode}`);
+  });
+
+  let gameMode = "bot"; // По умолчанию игра с ботом
+
+  gameModeSelect.addEventListener("change", () => {
+    gameMode = gameModeSelect.value;
+    resetGame();
+  });
+
+// Обновление логики хода бота в зависимости от режима игры
+function botMove() {
+  if (gameMode === "bot") {
+    // Логика хода бота для режима игры с ботом + [Создание бота]
+    if (checkBotWin()) { // Если бот может выиграть на следующем ходу, делаю соответствующий ход
+      setTimeout(makeBotWinningMove, 500); //время задержки хода [бота]
+    } 
+    else if (checkPlayerWin()) { // Если игрок может выиграть на следующем ходу, блокирую его победу  
+      setTimeout(blockPlayerWinningMove, 500);
+    } 
+    else { //Нет возможности выиграть или блокировать победу игрока? Беру случайную ячейку
+      setTimeout(makeRandomMove, 500);
+    }
+  } 
+  else { // Логика для хода другого игрока
+    cells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        playerMove(cell);
+      });
+    });
+  }
+}
+
+
   //расписывание внутрянки функций и условий [бота]
 
   //функция на проверку победы игрока
