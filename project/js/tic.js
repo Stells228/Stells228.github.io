@@ -152,7 +152,6 @@ function botMove() {
   }
 }
 
-
   //расписывание внутрянки функций и условий [бота]
 
   //функция на проверку победы игрока
@@ -451,16 +450,16 @@ function botMove() {
     let player1Top, player2Top;
 
     if (window.innerWidth < 980) {
-      player1Top = 1350 - player1Score * 100; // место и шаг вверх
-      player2Top = 1350 - player2Score * 100; // место и шаг вверх
+      player1Top = 1280 - player1Score * 80; // место и шаг вверх
+      player2Top = 1280 - player2Score * 80; // место и шаг вверх
     } 
     else if (window.innerWidth >= 980 && window.innerWidth < 1200) {
-      player1Top = 640 - player1Score * 100;
-      player2Top = 640 - player2Score * 100;
+      player1Top = 585 - player1Score * 80;
+      player2Top = 585 - player2Score * 80;
     } 
     else if (window.innerWidth >= 1200) {
-      player1Top = 625 - player1Score * 100;
-      player2Top = 625 - player2Score * 100;
+      player1Top = 544 - player1Score * 80;
+      player2Top = 544 - player2Score * 80;
     }
 
     player1Fig.style.top = player1Top + "px";
