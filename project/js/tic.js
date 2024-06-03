@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cell.addEventListener("click", () => {//при тыканьи будет происходить магия
       // Проверяю, что ячейка пуста
       if (!cell.style.backgroundImage && !gameOver) {
-        const urlPicture = patPat ? `media/1.png` : `media/2.png`; //условие о том, какая картинка первее
+        const urlPicture = patPat ? `media/1,1.png` : `media/2,2.png`; //условие о том, какая картинка первее
 
         cell.style.backgroundImage = `url(${urlPicture})`; //вставляю значение переменной
         cell.style.backgroundSize = `cover`;
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Логика для хода другого игрока
 function playerMove(cell) {
   if (!cell.style.backgroundImage && !gameOver) {
-    const urlPicture = patPat ? `media/1.png` : `media/2.png`;
+    const urlPicture = patPat ? `media/1,1.png` : `media/2,2.png`;
 
     cell.style.backgroundImage = `url(${urlPicture})`;
     cell.style.backgroundSize = `cover`;
@@ -160,21 +160,21 @@ function botMove() {
       const [x, y, z] = set;
       if (
         !cells[x].style.backgroundImage &&
-        cells[y].style.backgroundImage === 'url("media/1.png")' &&
+        cells[y].style.backgroundImage === 'url("media/1,1.png")' &&
         cells[y].style.backgroundImage === cells[z].style.backgroundImage
       ) {
         return true;
       }
       if (
         !cells[y].style.backgroundImage &&
-        cells[x].style.backgroundImage === 'url("media/1.png")' &&
+        cells[x].style.backgroundImage === 'url("media/1,1.png")' &&
         cells[x].style.backgroundImage === cells[z].style.backgroundImage
       ) {
         return true;
       }
       if (
         !cells[z].style.backgroundImage &&
-        cells[x].style.backgroundImage === 'url("media/1.png")' &&
+        cells[x].style.backgroundImage === 'url("media/1,1.png")' &&
         cells[x].style.backgroundImage === cells[y].style.backgroundImage
       ) {
         return true;
@@ -189,21 +189,21 @@ function botMove() {
       const [x, y, z] = set;
       if (
         !cells[x].style.backgroundImage &&
-        cells[y].style.backgroundImage === 'url("media/2.png")' &&
+        cells[y].style.backgroundImage === 'url("media/2,2.png")' &&
         cells[y].style.backgroundImage === cells[z].style.backgroundImage
       ) {
         return true;
       }
       if (
         !cells[y].style.backgroundImage &&
-        cells[x].style.backgroundImage === 'url("media/2.png")' &&
+        cells[x].style.backgroundImage === 'url("media/2,2.png")' &&
         cells[x].style.backgroundImage === cells[z].style.backgroundImage
       ) {
         return true;
       }
       if (
         !cells[z].style.backgroundImage &&
-        cells[x].style.backgroundImage === 'url("media/2.png")' &&
+        cells[x].style.backgroundImage === 'url("media/2,2.png")' &&
         cells[x].style.backgroundImage === cells[y].style.backgroundImage
       ) {
         return true;
@@ -220,7 +220,7 @@ function botMove() {
       if (
         !cells[x].style.backgroundImage &&
         cells[y].style.backgroundImage === cells[z].style.backgroundImage &&
-        cells[y].style.backgroundImage === 'url("media/2.png")'
+        cells[y].style.backgroundImage === 'url("media/2,2.png")'
       ) {
         cells[x].click();
         return;
@@ -228,7 +228,7 @@ function botMove() {
       if (
         !cells[y].style.backgroundImage &&
         cells[x].style.backgroundImage === cells[z].style.backgroundImage &&
-        cells[x].style.backgroundImage === 'url("media/2.png")'
+        cells[x].style.backgroundImage === 'url("media/2,2.png")'
       ) {
         cells[y].click();
         return;
@@ -236,7 +236,7 @@ function botMove() {
       if (
         !cells[z].style.backgroundImage &&
         cells[x].style.backgroundImage === cells[y].style.backgroundImage &&
-        cells[x].style.backgroundImage === 'url("media/2.png")'
+        cells[x].style.backgroundImage === 'url("media/2,2.png")'
       ) {
         cells[z].click();
         return;
@@ -450,16 +450,16 @@ function botMove() {
     let player1Top, player2Top;
 
     if (window.innerWidth < 980) {
-      player1Top = 1280 - player1Score * 80; // место и шаг вверх
-      player2Top = 1280 - player2Score * 80; // место и шаг вверх
+      player1Top = 1265 - player1Score * 80; // место и шаг вверх
+      player2Top = 1265 - player2Score * 80; // место и шаг вверх
     } 
     else if (window.innerWidth >= 980 && window.innerWidth < 1200) {
-      player1Top = 585 - player1Score * 80;
-      player2Top = 585 - player2Score * 80;
+      player1Top = 623 - player1Score * 80;
+      player2Top = 623 - player2Score * 80;
     } 
     else if (window.innerWidth >= 1200) {
-      player1Top = 544 - player1Score * 80;
-      player2Top = 544 - player2Score * 80;
+      player1Top = 595 - player1Score * 80;
+      player2Top = 595 - player2Score * 80;
     }
 
     player1Fig.style.top = player1Top + "px";
