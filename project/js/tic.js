@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Обработчик клика по ячейке
   //перебираю каждый эл-нт в массиве
   cells.forEach((cell) => {
-    cell.addEventListener("click", () => {//при тыканьи будет происходить магия
+    cell.addEventListener("click", () => {//при тыке будет происходить магия
       // Проверяю, что ячейка пуста
       if (!cell.style.backgroundImage && !gameOver) {
         const urlPicture = patPat ? `media/1,1.png` : `media/2,2.png`; //условие о том, какая картинка первее
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cell.style.backgroundPosition = `center`;
 
         patPat = !patPat; //смена фото для следующего клика
-        wonCheck(); //обробатывем возможный выигрыш
+        wonCheck(); //обрабатываем возможный выигрыш
         if (!gameOver && !patPat) {
           if (gameMode === "bot") { //если выбран режим игры с ботом
             botMove; // Делаем ход бота после хода игрока
