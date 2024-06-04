@@ -1,5 +1,5 @@
 body {
-    background-image: url('/media/fon.png');
+    background-image: url('../media/fon.png');
     background-size: 700px;
     background-position: center;
 }
@@ -55,7 +55,7 @@ body {
     height: 90px;
     transform: translate(-50%, -50%); /* Центрирование фигуры */
     transition: bottom 1.4s; /* Плавное движение фигуры */
-    background-image: url('/media/fish1.png');
+    background-image: url('../media/fish1.png');
     background-size: cover; /* Растягивает изображение на всю площадь элемента */
 }
 
@@ -64,7 +64,7 @@ body {
     height: 85px;
     transform: translate(-50%, -50%); /* Центрирование фигуры */
     transition: bottom 1.4s; /* Плавное движение фигуры */
-    background-image: url('/media/fish2.png');
+    background-image: url('../media/fish2.png');
     background-size: cover; /* Растягивает изображение на всю площадь элемента */
 }
 
