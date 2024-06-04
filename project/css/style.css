@@ -42,6 +42,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     font-size: 20px;
+    font-weight: bold;
 }
 
 .player1, .player2 {
@@ -68,7 +69,7 @@ body {
     background-size: cover; /* Растягивает изображение на всю площадь элемента */
 }
 
-/*установление "заморроженного" места кнопок выбора и вкл/выкл музыки, а также заголовка*/
+/*установление "замороженного" места кнопок выбора и вкл/выкл музыки, а также заголовка*/
 #musicSelect {
     width: 80px;
     height: 50px;
@@ -90,7 +91,7 @@ body {
 
 h1 {
     font-size: 50px;
-    font-weight: 30px;
+    font-weight: bold;
     cursor: pointer;
     font-family: cursive;
     color: #ff4b2b;
@@ -158,7 +159,7 @@ button {
     border: none;
     right: 10px;
     border-radius: 120px; /*закругление*/
-    padding: 10px, 50px; 
+    padding: 10px 50px; 
     background: linear-gradient(to right, #4b6cb7, #182848);
     color: #c2c2c2;
     font-size: 16px;
