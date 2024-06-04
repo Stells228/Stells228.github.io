@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="media/1.png">
+    <title>Tic-Tac-Toe</title>
+    <script src="js/tic.js" type="text/javascript" defer></script>
+</head>
+<body>
+    <h1>Tic-Tac-Toe</h1>
+    <div class="container">
+        <div class="game">
+            <div id="player1-Score"> Мурк`аты: 0</div>
+            <div id="player2-Score"> Костом`али: 0</div>
+            <button id="resetGameBtn">Каналья! Сброс игры</button>
+            <div id="finalScore"></div>
+            <!-- создаю игровое поле -->
+            <div class="board" id="board">
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+                <div class="cell" data-cell></div>
+            </div>
+            <button id="restBtn">Новый раунд</button>
+            <div id="map"><img src="media/map.png" alt="Карта"></div>
+            <div id="player1" class="player1"></div>
+            <div id="player2" class="player2"></div>
+
+            <!-- выбор режима игры -->
+            <select id="gameModeSelect">
+                <option value="bot">Игра с ботом</option>
+                <option value="human">Игра с другом</option>
+            </select>
+
+            <!-- выбор музыки по умолчанию, а также её зацикливание -->
+            <audio id="backgroundMusic" autoplay loop>
+                <source src="audio/1.mp3" type="audio/mpeg">
+            </audio>
+            <!-- source - указывает браузеру на наличие аудиофайла, а mpeg - на принадлежность файла к mp3 -->  
+        </div>
+        <!-- создаю кнопку, для переключения вкл/выкл музыки -->
+        <button id="toggleMusicBtn" onclick="toggleMusic()">Включить звук</button>
+        <select id="musicSelect" onchange="changeMusic()">
+            <option value="audio/1.mp3">Музыка 1</option>
+            <option value="audio/2.mp3">Музыка 2</option>
+            <option value="audio/3.mp3">Музыка 3</option>
+            <option value="audio/4.mp3">Музыка 4</option>
+            <option value="audio/5.mp3">Музыка 5</option>
+            <option value="audio/6.mp3">Музыка 6</option>
+            <option value="audio/7.mp3">Музыка 7</option>
+        </select>
+        <div id="message"></div>
+    </div>
+</body>
+</html>
